@@ -1,0 +1,17 @@
+#override .nav-link {
+  color: rgba(255, 255, 255, .7);
+}
+
+#override .nav-link:hover {
+  color: #6babff;
+}
+
+#override {
+  padding: 4px 8px;
+}
+
+@media (max-width: 768px) {
+  #override {
+    background-color: #154360 !important;
+  }
+}
