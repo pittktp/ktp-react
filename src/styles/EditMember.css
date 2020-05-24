@@ -1,0 +1,35 @@
+tr {
+  color: white;
+}
+
+.edit-members {
+  color: white;
+}
+
+#edit-members-row:hover {
+  cursor: pointer;
+}
+
+#edit-members-row:hover td {
+  color: white;
+  background-color: grey;
+}
+
+.edit-members-btn {
+  float: right;
+}
+
+#edit-members-modal-footer {
+  justify-content: flex-start !important;
+}
+
+#edit-members-modal-footer .row {
+  flex-wrap: nowrap !important;
+  justify-content: flex-end;
+}
+
+#edit-members-modal-footer>* {
+  margin: 0;
+  padding: 0;
+  padding-right: 15px;
+}

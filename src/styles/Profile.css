@@ -1,0 +1,178 @@
+@media only screen and (max-width: 768px) {
+  .profile-header {
+    text-align: center !important;
+  }
+  .profile-no-pic, .profile-pic {
+    margin: 12px auto 4px;
+  }
+  .profile-btns {
+    margin-top: 15px;
+  }
+  .profile-detail {
+    margin-top: 15px;
+  }
+  .progress-value {
+    margin-left: 15px;
+  }
+  #serviceBar, #pointsBar {
+    width: 50%;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .profile-no-pic, .profile-pic {
+    margin: 0 auto;
+    margin-left: 30px;
+    text-align: center;
+  }
+  .progress-bars {
+    margin-left: 15px;
+  }
+  .profile-sub {
+    margin: 0 auto;
+    text-align: center;
+  }
+  .profile-btns {
+    margin: 0 auto;
+    margin-top: 10px;
+    text-align: center;
+  }
+  #serviceBar, #pointsBar {
+    width: 80%;
+    margin-left: 30px;
+  }
+  .tab-content {
+    padding-left: 0;
+  }
+  .acad-content {
+    padding-left: 18px;
+  }
+  .ktp-btn {
+    margin-left: 18px;
+  }
+}
+body {
+  background: url(http://localhost:3000/img/BackgroundPattern.png), linear-gradient(to left, var(--prof-color1), var(--prof-color2));
+}
+.profile-container {
+  min-height: 100vh;
+  margin-top: 15vh;
+  margin-bottom: 5vh;
+}
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+.profile-content {
+  border-color: #ccc;
+  -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+  background-color: #fff;
+  color: #00415d;
+  overflow: hidden;
+}
+.profile-header {
+  padding-left: 15px;
+}
+.profile-info {
+  margin-top: 8vh;
+  margin-left: 10px;
+  padding-bottom: 10px;
+}
+.profile-no-pic {
+  border-radius: 50%;
+  background-color: #CCC;
+  color: #777;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  font-size: 42px;
+  margin-top: 15px;
+}
+.profile-pic {
+  border-radius: 50%;
+  margin-top: 15px;
+}
+.profile-pic img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+#serviceBar, #pointsBar {
+  display: inline-block;
+  background-color: grey;
+  overflow: hidden;
+  border-radius: 20px;
+}
+#service .progress-bar {
+  background-color: var(--prof-color1)
+}
+#points .progress-bar {
+  background-color: var(--prof-color2)
+}
+.tab-content {
+  width: 100%;
+  padding-bottom: 10px;
+}
+.accordion {
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+.active, .accordion:hover {
+  background-color: #eee;
+}
+.progress-bar {
+  padding: 0;
+}
+.progress-bars {
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1.15;
+}
+.ktp-btn {
+  text-align: center;
+  margin-bottom: 10px;
+}
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #fff;
+  color: #00415d;
+  text-align: center;
+  border-radius: 2px;
+  padding: 8px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+}
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
