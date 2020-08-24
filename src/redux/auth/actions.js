@@ -27,7 +27,7 @@ const actions = {
       })
       .catch(err => {
         dispatch(action(types.AUTH_ERROR, {}));
-        return err.response.data;
+        return err.response;
       });
     };
   },
