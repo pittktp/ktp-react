@@ -3,16 +3,19 @@
 
 # Stage 1 - the frontend React image
 FROM node:8 as builder
-COPY ./ /react_app
 WORKDIR /react_app
+ENV PATH /react_app/node_modules/.bin:$PATH
+COPY package.json ./
+COPY yarn.lock ./
 RUN yarn install
+COPY . ./
 RUN yarn build
 
 # Stage 2 - the Nginx webserver image
 FROM nginx:alpine
-RUN rm -f /usr/share/nginx/html/*
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder /react_app/build/* /usr/share/nginx/html/
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=builder /react_app/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 EXPOSE 443
 CMD ["nginx", "-g", "daemon off;"]
