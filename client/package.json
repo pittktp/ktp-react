@@ -24,6 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "dev": "concurrently \"yarn start\" \"yarn --cwd ../server dev\"",
+    "dev_npm": "concurrently \"npm run start\" \"npm run dev --prefix ../server\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

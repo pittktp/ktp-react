@@ -1,6 +1,6 @@
 import ApiService from './Api';
 
-const BASE_URL = process.env.REACT_APP_API || 'http://localhost:3030/';
+const BASE_URL = process.env.REACT_APP_API;
 
 let client = new ApiService({ baseURL: BASE_URL });
 
