@@ -2,14 +2,17 @@ const AWS = require('aws-sdk');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 
+// Set up AWS
 AWS.config.update({
   secretAccessKey: process.env.AWS_ACCESS_KEY_SECRET,
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   region: 'us-east-1',
 });
 
+// Create new S3 object instance
 const S3 = new AWS.S3();
 
+// Ensure only valid image file types (GIF, JPEG/JPG, PNG) are uploaded
 const fileFilter = (req, file, cb) => {
   switch (file.mimetype) {
     case 'image/gif':
@@ -23,6 +26,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
+// Function that handles uploading images to S3
 const upload = multer({
   fileFilter,
   storage: multerS3({
@@ -40,6 +44,7 @@ const upload = multer({
   }),
 });
 
+// Function that handles removing images from S3
 const remove = filePath => {
   const fileKey = filePath.replace('https://pitt-ktp.s3.amazonaws.com/', '');
   const params = { Bucket: 'pitt-ktp', Key: fileKey };

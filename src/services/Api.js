@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// Setting Default API values
 const API_ROOT = process.env.REACT_APP_API || 'http://localhost:3030/';
 const TIMEOUT = 20000;
 const HEADERS = {
@@ -7,6 +8,7 @@ const HEADERS = {
   'Accept': 'application/json',
 };
 
+// Declaring generic API service
 class ApiService {
   constructor({ baseURL = API_ROOT, timeout = TIMEOUT, headers = HEADERS }) {
     const client = axios.create({ baseURL, timeout, headers });
@@ -14,6 +16,8 @@ class ApiService {
     this.client = client;
   }
 
+  // The two below handle functions makes it easier to interact with our
+  // API response, especially in the case of an error
   handleSuccess(response) {
     return response;
   }
@@ -21,6 +25,8 @@ class ApiService {
   handleError(error) {
     return Promise.reject(error);
   }
+
+  // NOTE: Payload refers to the request body
 
   // GET DATA
   get(path) {

@@ -11,6 +11,8 @@ import store from './redux/store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/Theme.css';
 
+// We need to use the Provider here so that the entire app
+// has access to our Redux store
 ReactDOM.render(
   <Provider store={store}>
     <App />

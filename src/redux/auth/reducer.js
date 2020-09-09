@@ -2,6 +2,7 @@
 import { types } from './actions';
 import Api from '../../services/KTPApi';
 
+// Initial State of the auth object in the Redux store
 const initialState = {
   token: localStorage.getItem('token') || null,
   isAuthenticated: false,
@@ -9,6 +10,9 @@ const initialState = {
   member: null
 };
 
+// Reducer function which handles everything relating to authentication
+// Essentially, one large switch statement that goes over all possible
+// outcomes from an authentication-related API call
 export default function (state = initialState, action) {
   switch (action.type) {
     case types.LOAD_MEMBER:

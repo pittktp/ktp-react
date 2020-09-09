@@ -1,3 +1,4 @@
+// Importing Packages
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('./dbService');
@@ -42,6 +43,7 @@ class AuthService {
     const hasEmail = credentials.hasOwnProperty('email');
     const hasPassword = credentials.hasOwnProperty('password');
 
+    // Validate that we received all the info we need to login
     if (!hasEmail || !hasPassword) {
       let payload = { error: 'Missing required fields!' };
       return { status_code: 400, payload };
@@ -89,6 +91,7 @@ class AuthService {
       return { status_code: 400, payload };
     }
 
+    // Hash the password
     const hashedpw = await bcrypt.hash(password, await bcrypt.genSalt());
     const is_admin = code === process.env.ADMIN_CODE;
     // Remove code from credentials object so it doesnt get put into the DB

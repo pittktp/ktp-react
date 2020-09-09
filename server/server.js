@@ -1,4 +1,5 @@
-require('dotenv').config();
+// Package Imports
+require('dotenv').config(); // Reads .env file and loads its values
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -15,15 +16,17 @@ AWS.config.update({
 });
 
 // Set Up Middleware
-app.use(helmet());
-app.use(express.json());
+app.use(helmet()); // Security
+app.use(express.json()); // Parses incoming request bodies as json
+// Restricts access to API to only our actual site
 app.use(cors({ origin: process.env.CORS_ORIGIN || 'http://localhost:3000'}));
 
-// Set up Controllers
+// Importing controller files
 const authController = require('./controllers/authController');
 const memberController = require('./controllers/memberController');
 const requestController = require('./controllers/requestController');
 
+// Attaching controllers to their respective API endpoints
 app.use('/auth', authController);
 app.use('/members', memberController);
 app.use('/requests', requestController);

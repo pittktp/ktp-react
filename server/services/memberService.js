@@ -1,6 +1,8 @@
 // Model
 const Member = require('../models/member');
 
+// Very simple service which handles only a few basic updates
+// Good example of async/await and MongoDB query operators
 class MemberService {
   async updateAbsences(id) {
     let doc = await Member.findByIdAndUpdate(id, { $inc: { absences: -1 } });

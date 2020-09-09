@@ -16,6 +16,10 @@ export const types = {
 const action = (type, payload) => ({ type, payload });
 
 // ACTION CREATORS
+// This is where the thunk middleware comes in handy.
+// It allows us to make asynchronous API calls within our action creators,
+// so that we can isolate the handling of our API calls from 
+// our React component logic.
 const actions = {
   login: (credentials) => {
     return dispatch => {
@@ -52,6 +56,9 @@ const actions = {
     };
   },
   validate: () => {
+    // Checks if there is a token in localStorage
+    // If so, it contacts the API to see if the token is still
+    // valid or not.
     return dispatch => {
       dispatch(action(types.AUTH_VALIDATE, {}));
 
@@ -76,6 +83,10 @@ const actions = {
     };
   },
   loadMember: id => {
+    // If a change happens on the server that impacts the logged in user,
+    // that user needs to be able to see those changes as soon as possible.
+    // This function gets called whenever something happens that may affect
+    // the logged in member, so they will be up-to-date at all times.
     return dispatch => {
       dispatch(action(types.LOAD_MEMBER, {}));
 

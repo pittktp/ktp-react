@@ -2,10 +2,15 @@ import ApiService from './Api';
 
 const BASE_URL = process.env.REACT_APP_API || 'http://localhost:3030/';
 
+// Instantiate a new API service
 let client = new ApiService({ baseURL: BASE_URL });
 
 const Api = {};
 
+// Set default headers, including any token found in localStorage
+// This is important because when an API call is made during page load,
+// Redux will not have loaded the token value yet, causing all API calls
+// during page load to fail
 Api.setToken = (token) => {
   let HEADERS = {
     'Content-Type': 'application/json',
@@ -15,6 +20,11 @@ Api.setToken = (token) => {
 
   client = new ApiService({ baseURL: BASE_URL, headers: HEADERS });
 }
+
+// Declaring specific methods for our KTP server makes it easy to
+// understand what we're trying to do, cuts down on unnecessary
+// boilerplate code, as well as allows us to edit API calls in one place
+// and have it update across the application.
 
 // AUTH
 Api.validate = () => client.get('/auth/validate');
