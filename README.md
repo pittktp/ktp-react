@@ -38,9 +38,12 @@ git clone https://github.com/pittktp/ktp-react.git
 And then navigate to the cloned repository's directory.
 
 ### Prerequisites
-You have to have the Classic Yarn package manager installed. Yarn is a nice command-line tool that lets you easily set up dependencies that you may need for React and Node.js. Note that we need the classic version of Yarn (version 1.x) and not the newest version of Yarn (vesion 2.x).
+You have to have a package manager installed, I recommend the Classic Yarn package manager. Yarn is a nice command-line tool that lets you easily set up dependencies that you may need for React and Node.js. Note that we need the classic version of Yarn (version 1.x) and not the newest version of Yarn (vesion 2.x).
 To check if you have Yarn installed go to your command-line terminal and type "yarn versions". You should have version 1.22.4.
 If you don't have it installed, go to https://classic.yarnpkg.com/en/docs/install
+
+If Yarn is for some reason not working for you, the site also supports the use of NPM (Node Package Manager), which you can install here: https://nodejs.org/en/
+The either the LTS (v12.x) or Current (v14.x) version will work, so the version you select is up to your preference. 
 
 #### React (Frontend)
 To install the frontend dependencies, navigate to the root of the cloned repository and type in a terminal:
@@ -52,6 +55,16 @@ Now you're able to run the frontend with:
 yarn start
 ```
 Go to http://localhost:3000 in your browser and you're able to see the website. However, since we don't have the backend or database setup yet, you won't be able to do things like login which requires the server.
+
+A nice shortcut that's set up for you once you do get the server and database setup is:
+```
+yarn dev
+```
+or
+```
+npm run dev_npm
+```
+This command will run both the frontend and the backend for you at the same time, with hot-reloading enabled.
 
 #### Node.js (Backend)
 The backend isn't as heavy code-wise as the frontend, as it's only really responsible for taking data from the frontend and saving or manipulating it in the database, or pulling from the database and sending it back to the frontend. Set up your backend dependencies by navigating to the "server" folder and typing in a terminal:
