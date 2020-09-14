@@ -29,6 +29,7 @@ function App(props) {
     let bodyElem = document.body;
     let hasColor1 = bodyElem.style.getPropertyValue('--prof-col1') !== '';
     let hasColor2 = bodyElem.style.getPropertyValue('--prof-col2') !== '';
+    
     if (!hasColor1 && !hasColor2) {
       bodyElem.style.setProperty('--prof-color1', '#28B463');
       bodyElem.style.setProperty('--prof-color2', '#145BBD');
