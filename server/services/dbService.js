@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const MONGO_URI = process.env.MONGO_URI;
+const local = true // Temporary flag to switch between prod and local DB
+const MONGO_URI = local ? process.env.MONGO_URI : process.env.MONGO_PROD_URI;
 
 let mongoOptions = {
   useNewUrlParser: true,
