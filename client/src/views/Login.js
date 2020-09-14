@@ -57,7 +57,8 @@ function Login(props) {
     // Call Redux `login` action creator
     props.login({ email, password })
       .then(data => {
-        if (!data.error) {
+        console.log(data);
+        if (!data.error && data.member) {
           props.showToast('success', `Welcome, ${data.member.name}`);
           props.history.push('/');
         } else {
