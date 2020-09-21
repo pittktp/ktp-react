@@ -69,14 +69,24 @@ function KTPHeader(props) {
   }
 
   const handleNotHere = (member, index) => {
+    // TESTING
+    console.log('MEMBERS:', members);
+    console.log('MEMBER:', member);
+    console.log('INDEX:', index);
+
     // Add Member To Not Here List
     let membersNotHere = [ ...notHere, member._id ];
     setNotHere(membersNotHere);
 
     // Remove Member From Attendence List
-    let members_update = [ ...members ];
-    members_update.splice(index, 1);
-    setMembers(members_update);
+    // let members_update = [ ...members ];
+    // members_update.splice(index, 1);
+    // setMembers(members_update);
+    setMembers(members => {
+      members.splice(index, 1);
+      return [ ...members ];
+    });
+    console.log('MEMBERS:', members);
   }
 
   const navigate = path => {
@@ -109,16 +119,16 @@ function KTPHeader(props) {
         </tr>
       </thead>
       <tbody>
-        {members.filter(member => !notHere.includes(member) && member.role !== 'Alumni' && member.role !== 'Inactive')
-          .map((member, index) => (
+        {members.map((member, index) => {
+            return !notHere.includes(member) && member.role !== 'Alumni' && member.role !== 'Inactive' && (
             <tr key={member._id} style={{ color: 'black' }}>
               <td>{ member.name }</td>
               <td>
                 <Button variant='outline-danger' onClick={() => handleNotHere(member, index)}>Not Here</Button>
               </td>
             </tr> 
-          )
-        )}
+          );
+        })}
       </tbody>
     </Table>
   );
