@@ -42,6 +42,8 @@ You have to have the Classic Yarn package manager installed. Yarn is a nice comm
 To check if you have Yarn installed go to your command-line terminal and type "yarn versions". You should have version 1.22.4.
 If you don't have it installed, go to https://classic.yarnpkg.com/en/docs/install
 
+If Yarn is for some reason not working for you, the site also supports the use of NPM (Node Package Manager), which you can install here: https://nodejs.org/en/ The either the LTS (v12.x) or Current (v14.x) version will work, so the version you select is up to your preference.
+
 #### React (Frontend)
 To install the frontend dependencies, navigate to the root of the cloned repository and type in a terminal:
 ```
@@ -52,6 +54,16 @@ Now you're able to run the frontend with:
 yarn start
 ```
 Go to http://localhost:3000 in your browser and you're able to see the website. However, since we don't have the backend or database setup yet, you won't be able to do things like login which requires the server.
+
+A nice shortcut that's set up for you once you do get the server and database setup is:
+```
+yarn dev
+```
+or
+```
+npm run dev_npm
+```
+This command will run both the frontend and the backend for you at the same time, with hot-reloading enabled.
 
 #### Node.js (Backend)
 The backend isn't as heavy code-wise as the frontend, as it's only really responsible for taking data from the frontend and saving or manipulating it in the database, or pulling from the database and sending it back to the frontend. Set up your backend dependencies by navigating to the "server" folder and typing in a terminal:
@@ -74,4 +86,4 @@ For our database, we'll be using a MongoDB Atlas cluster, however that is only f
 Now you'll just need to run Mongo. For this I recommend checking the MongoDB Docs, as I cannot explain it better than themselves and it contains the instructions for multiple platforms (Windows, macOS, Linux). You can view those docs here: https://docs.mongodb.com/guides/server/install/#run-mongodb.
 
 #### Environment Variables
-For some features to properly work on the site, but are sensitive information we don't want to have publicly available, we use environment variables set in a .env file for the front and backends. This file is not included with the reposity, so if for some reason you do not have those files, please let your current Technology Chair know.
+For some features to properly work on the site, but are sensitive information we don't want to have publicly available, we use environment variables set in a .env file for the front and backends. This file is not included with the repository, so if for some reason you do not have those files, please let your current Technology Chair know.
