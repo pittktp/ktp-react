@@ -52,7 +52,7 @@
   }
 }
 body {
-  background: url(http://localhost:3000/img/BackgroundPattern.png), linear-gradient(to left, var(--prof-color1), var(--prof-color2));
+  background: url(https://pittkappathetapi.com/img/BackgroundPattern.png), linear-gradient(to left, var(--prof-color1), var(--prof-color2));
 }
 .profile-container {
   min-height: 100vh;
