@@ -371,7 +371,7 @@ function PointsLog(props) {
                   </Col>
                 </Row>
               </Col>
-              <Row style={{ width: '90vw', overflow: 'scroll' }}>
+              <Row style={{overflow: 'scroll' }}>
                 <Table size='sm' style={{ color: 'white' }} bordered>
                   <thead>
                     <tr>

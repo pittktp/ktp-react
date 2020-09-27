@@ -198,7 +198,7 @@ function EditMembers(props) {
               <Col xs={8}>
                 <h2 style={{ color: 'white' }}>Edit Members</h2>
               </Col>
-              <Row style={{ minWidth: '90vw', overflowX: 'scroll' }}>
+              <Row style={{ overflowX: 'scroll' }}>
                 <Table size='sm' hover bordered>
                   <thead>
                     <tr>
