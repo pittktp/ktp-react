@@ -38,7 +38,7 @@ router.patch('/attendence', auth, async (req, res) => {
   let validation_res = await authService.validate(token);
 
   if (validation_res.result === 'invalid') {
-    return res.status(403).json(valid_res);
+    return res.status(403).json(validation_res);
   }
 
   const { member } = validation_res;
