@@ -26,7 +26,7 @@ function Members(props) {
     if (members.length === 0) {
       // Only brings back email and picture if user is authenticated
       Api.getMembers()
-        .then(data => setMembers(data.members));
+        .then(data => setMembers(data.members.sort(sortMembers)));
     }
   });
 
@@ -39,6 +39,16 @@ function Members(props) {
       default:
         return member.role !== 'Inactive' || member.role !== 'Alumni';
     }
+  }
+
+  // Handles sorting members in alphabetical order
+  const sortMembers = (memberA, memberB) => {
+    if (memberA.name < memberB.name)
+      return -1;
+    else if (memberA.name > memberB.name)
+      return 1;
+    else
+      return 0;
   }
 
   // Handles navigating to a profile
