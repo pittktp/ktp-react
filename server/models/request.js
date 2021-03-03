@@ -9,6 +9,7 @@ const Request = mongoose.model('Request', {
   submittedById: { type: String },
   submittedDate: { type: String },
   approved: { type: Number },
+  picture: { type: String },
 });
 
 module.exports = Request;

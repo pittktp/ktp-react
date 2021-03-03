@@ -18,7 +18,7 @@ const fileFilter = (req, file, cb) => {
       cb(null, true);
       break;
     default:
-      cb(new Error('Invalid file type, only JPEG, PNG, and GIF is allowed!'));
+      cb(new Error('Invalid file type, only JPEG, PNG, and GIF is allowed!'), false);
       break;
   }
 };
@@ -29,7 +29,6 @@ const upload = multer({
     acl: 'public-read',
     s3: S3,
     bucket: 'pitt-ktp',
-    contentType: multerS3.AUTO_CONTENT_TYPE,
     metadata: (req, file, cb) => {
       cb(null, { fieldName: 'TESTING_METADATA' });
     },
@@ -51,4 +50,20 @@ const remove = filePath => {
   });
 }
 
-module.exports = { upload, remove };
+const uploadRequest = multer({
+  fileFilter,
+  storage: multerS3({
+    acl: 'public-read',
+    s3: S3,
+    bucket: 'pitt-ktp',
+    metadata: (req, file, cb) => {
+      cb(null, { fieldName: 'TESTING_METADATA' });
+    },
+    key: (req, file, cb) => {
+      var path = `img/requests/${req.body.shortName}/${req.body.fileName}`;
+      cb(null, path);
+    }
+  }),
+});
+
+module.exports = { upload, uploadRequest, remove };

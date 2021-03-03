@@ -10,7 +10,7 @@ import Row from 'react-bootstrap/Row';
 // Custom
 import Layout from './layouts/Layout';
 import logo from '../img/KtpLetters.png';
-import rush from '../img/FallRush2020.jpg';
+import rush from '../img/SpringRush2021.jpeg';
 import '../styles/Home.css';
 
 const Home = () => {

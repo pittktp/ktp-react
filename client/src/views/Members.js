@@ -19,7 +19,7 @@ import '../styles/Members.css';
 function Members(props) {
   // Component State
   const [members, setMembers] = useState([]);
-  const [filter, setFilter] = useState('Active Members');
+  const [filter, setFilter] = useState('Active');
 
   useEffect(() => {
     // Only call API if members aren't already loaded
@@ -29,6 +29,17 @@ function Members(props) {
         .then(data => setMembers(data.members));
     }
   });
+
+  // Handles filtering members
+  const filterMembers = member => {
+    switch (filter) {
+      case 'Inactive':
+      case 'Alumni':
+        return member.role === filter;
+      default:
+        return member.role !== 'Inactive' || member.role !== 'Alumni';
+    }
+  }
 
   // Handles navigating to a profile
   const viewProfile = email => {
@@ -50,8 +61,8 @@ function Members(props) {
                     onChange={e => setFilter(e.target.value)}
                     title='Click to filter members'
                   >
-                    <option value='Active Members'>Fall 2020 Active Members</option>
-                    <option value='Inactive Members'>Inactive Members</option>
+                    <option value='Active'>Active Members</option>
+                    <option value='Inactive'>Inactive Members</option>
                     <option value='Alumni'>Alumni</option>
                   </Form.Control>
                 </Form.Group>
@@ -59,7 +70,7 @@ function Members(props) {
             </div>
             <div className='grid'>
               <Row className='justify-content-center row-cols-1 row-cols-lg-4 rows-cols-md-3 rows-cols-sm-2 rows-cols-xs-1'>
-                {members.map((member, index) => (
+                {members.filter(filterMembers).map((member, index) => (
                   <Col key={index} xs={8} sm={6} md={4} lg={3} className='mb-4'>
                     <Card className='members-card h-100'>
                       {props.isAuthenticated && member.picture ? (

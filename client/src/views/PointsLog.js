@@ -36,7 +36,7 @@ function PointsLog(props) {
   // Modal State
   const [excuseData, setExcuseData] = useState({ date: moment().format('YYYY-MM-DD'), description: '' });
   const [hoursData, setHoursData] = useState({ serviceHours: 1, description: '' });
-  const [pointsData, setPointsData] = useState({ points: 1, description: '' });
+  const [pointsData, setPointsData] = useState({ points: 1, description: '', picture: null });
   const [historyData, setHistoryData] = useState({ memberName: null, history: [] });
 
   useEffect(() => {
@@ -72,6 +72,13 @@ function PointsLog(props) {
     }
   }
 
+  // Get file object from form input
+  const handleFiles = () => {
+    const uploader = document.querySelector('#customFile');
+    const targetFile = uploader.files[0];
+    setPointsData({ ...pointsData, picture: targetFile });
+  }
+
   // Closes History Modal and Clears its State
   const closeHistory = () => {
     setHistoryData({ memberName: null, history: [] });
@@ -92,21 +99,25 @@ function PointsLog(props) {
     e.preventDefault();
 
     // Deconstruct fields from pointsData
-    const { points, description } = pointsData;
-    // Construct payload object
-    let payload = {
-      type: 'Brotherhood Points',
-      value: points,
-      description,
-      submittedBy: props.member.name,
-      submittedById: props.member._id,
-      submittedDate: moment().format('MM-DD-YYYY'),
-      approved: 0,
-    };
+    const { points, description, picture } = pointsData;
 
-    // Call API to create the request
-    Api.createRequest(payload)
-      .then(data => {
+    // Construct form data if file is provided
+    if (picture) {
+      let fileName = picture.name;
+
+      var formData = new FormData();
+      formData.append('fileName', fileName);
+      formData.append('shortName', props.member.email.split('@')[0]);
+      formData.append('image', picture);
+      formData.append('type', 'Brotherhood Points');
+      formData.append('value', points);
+      formData.append('description', description);
+      formData.append('submittedBy', props.member.name);
+      formData.append('submittedById', props.member._id);
+      formData.append('submittedDate', moment().format('MM-DD-YYYY'));
+      formData.append('approved', 0);
+
+      Api.createRequest(formData).then(data => {
         if (data.success) {
           setRequests([...requests, data.request]);
           setShowPointsModal(false);
@@ -115,6 +126,29 @@ function PointsLog(props) {
           props.showToast('error', data.error);
         }
       });
+    } else {
+      // Construct payload object
+      let payload = {
+        type: 'Brotherhood Points',
+        value: points,
+        description,
+        submittedBy: props.member.name,
+        submittedById: props.member._id,
+        submittedDate: moment().format('MM-DD-YYYY'),
+        approved: 0,
+      };
+
+      // Call API to create the request
+      Api.createRequest(payload).then(data => {
+        if (data.success) {
+          setRequests([...requests, data.request]);
+          setShowPointsModal(false);
+          props.showToast('success', 'Request Created');
+        } else {
+          props.showToast('error', data.error);
+        }
+      });
+    }
   }
 
   // Submits Service Hours Form
@@ -210,7 +244,7 @@ function PointsLog(props) {
   // Only ender requests table if there ae pending requests
   let pendingRequests = requests.filter(req => req.approved === 0);
   let requestModalContent = pendingRequests.length > 0 ? (
-    <Table size='sm' hover bordered>
+    <Table size='lg' hover bordered>
       <thead>
         <tr style={{ color: 'black' }}>
           <th>Submitted By</th>
@@ -218,6 +252,7 @@ function PointsLog(props) {
           <th>Type</th>
           <th>Value</th>
           <th>Description</th>
+          <th>Picture</th>
           <th>Accept/Deny</th>
         </tr>
       </thead>
@@ -245,6 +280,11 @@ function PointsLog(props) {
               <td>{ req.value }</td>
             )}
             <td>{ req.description }</td>
+            <td>
+              {req.picture ? (
+                <a href={req.picture}>Link</a>
+              ) : 'No'}
+            </td>
             <td>
               <Button variant='outline-success' onClick={() => acceptRequest(req._id)}>Accept</Button>
               <span> </span>
@@ -275,6 +315,7 @@ function PointsLog(props) {
                 <th>Type</th>
                 <th>Value</th>
                 <th>Description</th>
+                <th>Picture</th>
               </tr>
             </thead>
             <tbody>
@@ -292,6 +333,11 @@ function PointsLog(props) {
                     <td>{ req.value }</td>
                   )}
                   <td>{ req.description }</td>
+                  <td>
+                    {req.picture ? (
+                      <a href={req.picture}>Link</a>
+                    ) : 'No'}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -503,6 +549,12 @@ function PointsLog(props) {
                   />
                 </Form.Group>
               </Form>
+              <Form encType='multipart/form-data'>
+                <div>
+                  <input id='customFile' name='image' type='file' onChange={handleFiles} />
+                </div>
+              </Form>
+              <br />
               <br />
               <div>
                 <label style={{ color: 'black' }}>What constitutes a brotherhood point?</label>

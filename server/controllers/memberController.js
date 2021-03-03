@@ -172,13 +172,13 @@ router.post('/:id/image/upload', auth, async (req, res) => {
   }
 
   req.body.domain = 'profile';
-  singleUpload(req, res, async (err, some) => {
+  singleUpload(req, res, async (err) => {
     if (err) {
       return res.status(422).json({ success: false, error: err });
     }
 
     let picture = `https://pitt-ktp.s3.amazonaws.com/img/profile/${req.body.shortName}/${req.body.newFileName}`;
-    let member = await Member.findOneAndUpdate(req.params._id, { $set: { picture } }, { new: true });
+    let member = await Member.findOneAndUpdate({ _id: req.params.id }, { $set: { picture } }, { new: true });
 
     if (member) {
       return res.status(200).json({ success: true });

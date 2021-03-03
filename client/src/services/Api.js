@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_ROOT = process.env.REACT_APP_API;
-const TIMEOUT = 20000;
+const TIMEOUT = 50000;
 const HEADERS = {
   'Content-Type': 'application/json',
   'Accept': 'application/json',

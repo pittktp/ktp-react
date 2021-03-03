@@ -11,6 +11,10 @@ const MemberService = require('../services/memberService');
 const authService = new AuthService();
 const memberService = new MemberService();
 
+// Set Up S3 Service
+const { uploadRequest, remove } = require('../services/s3Service');
+const singleUpload = uploadRequest.single('image');
+
 // Models
 const Request = require('../models/request');
 
@@ -38,13 +42,35 @@ router.post('/', auth, async (req, res) => {
     return res.status(403).json(validation_res);
   }
 
-  let request = new Request(req.body);
-  let request_doc = await request.save();
-  if (request_doc) {
-    return res.status(201).json({ success: true, request: request_doc });
-  }
+  if (req.body.image) {
+    singleUpload(req, res, async (err) => {
+      if (err) {
+        return res.status(422).json({ success: false, error: err });
+      }
 
-  return res.status(500).json({ success: false, error: 'Something went wrong!' });
+      let picture = `https://pitt-ktp.s3.amazonaws.com/img/requests/${req.body.shortName}/${req.body.fileName}`;
+      req.body.picture = picture;
+      delete req.body.shortName;
+      delete req.body.fileName;
+      delete req.body.image;
+
+      let request = new Request(req.body);
+      let request_doc = await request.save();
+      if (request_doc) {
+        return res.status(201).json({ success: true, request: request_doc });
+      }
+
+      return res.status(500).json({ success: false, error: 'Something went wrong!' });
+    });
+  } else {
+    let request = new Request(req.body);
+    let request_doc = await request.save();
+    if (request_doc) {
+      return res.status(201).json({ success: true, request: request_doc });
+    }
+
+    return res.status(500).json({ success: false, error: 'Something went wrong!' });
+  }
 });
 
 // PATCH Accept existing request
@@ -102,10 +128,14 @@ router.delete('/:id', auth, async (req, res) => {
 
   if (!ObjectId.isValid(req.params.id))
     return res.status(404).json({ success: false, error: 'Request could not be found' });
-
-  let delete_res = await Request.findByIdAndDelete(req.params.id);
-  if (delete_res) {
-    return res.status(200).json({ success: true });
+  let target_request = await Request.findById(req.params.id);
+  if (target_request) {
+    let delete_res = await Request.findByIdAndDelete(req.params.id);
+    if (delete_res) {
+      if (target_request.picture)
+        remove(target_request.picture);
+      return res.status(200).json({ success: true });
+    }
   }
 
   return res.status(500).json({ success: false, error: 'Something went wrong'});
