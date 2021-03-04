@@ -37,7 +37,7 @@ function Members(props) {
       case 'Alumni':
         return member.role === filter;
       default:
-        return member.role !== 'Inactive' || member.role !== 'Alumni';
+        return member.role !== 'Inactive' && member.role !== 'Alumni';
     }
   }
 
