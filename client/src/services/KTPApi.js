@@ -20,6 +20,8 @@ Api.setToken = (token) => {
 Api.validate = () => client.get('/auth/validate');
 Api.login = payload => client.post('/auth/login', payload);
 Api.register = payload => client.post('/auth/register', payload);
+Api.forgotPassword = payload => client.post('/auth/forgot-password', payload);
+Api.resetPassword = payload => client.post('/auth/reset-password', payload);
 
 // MEMBER
 Api.getMembers = () => client.get('/members');

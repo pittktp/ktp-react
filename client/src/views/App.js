@@ -13,6 +13,7 @@ import Members from './Members';
 import PointsLog from './PointsLog';
 import EditMembers from './EditMembers';
 import Profile from './Profile';
+import ForgotPassword from './ForgotPassword';
 import actions from '../redux/auth/actions';
 import toastActions from '../redux/toast/actions';
 
@@ -45,6 +46,7 @@ function App(props) {
         <Route path='/points' component={PointsLog} />
         <Route path='/edit-members' component={EditMembers} />
         <Route path='/profile/:id' component={Profile} />
+        <Route path='/forgot-password' component={ForgotPassword} />
       </Switch>
       {/* Toast Put Here To Stay Visible Across Page Changes */}
       <Toast

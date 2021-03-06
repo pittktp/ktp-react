@@ -117,7 +117,7 @@ function Login(props) {
       <center>
         <Button variant='primary' type='submit'>Login</Button>
       </center>
-      <p id='forgot-pass'>Forgot Password?</p>
+      <p id='forgot-pass' onClick={() => props.history.push('/forgot-password')}>Forgot Password?</p>
     </Form>
   ) : (
     <Form onSubmit={handleRegister}>
