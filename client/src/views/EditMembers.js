@@ -43,7 +43,7 @@ function EditMembers(props) {
     // Uses `shouldUpdate` to prevent excess API calls
     if (shouldUpdate) {
       Api.getMembers().then(data => {
-        setMembers(data.members.filter(mem => mem.role !== 'Inactive' && mem.role !== 'Alumni'));
+        setMembers(data.members);
         setShouldUpdate(false);
       });
     }

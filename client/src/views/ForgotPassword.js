@@ -19,12 +19,6 @@ const ForgotPassword = (props) => {
   const [confirm, setConfirm] = useState('');
   const [resetCode, setResetCode] = useState('');
 
-  useEffect(() => {
-    if (confirm !== password) {
-
-    }
-  }, [confirm, password]);
-
   const handleReset = e => {
     e.preventDefault();
 
@@ -46,7 +40,7 @@ const ForgotPassword = (props) => {
               Forgot Password
             </Card.Header>
             <Card.Body>
-              <p>Enter your account email, and you'll receive an email with a reset code</p>
+              <p>Enter your account email and new password. Ask the current Tech Chair for a reset code</p>
               <Form onSubmit={handleReset}>
               `<Form.Group controlId='email'>
                   <Form.Control
@@ -72,6 +66,7 @@ const ForgotPassword = (props) => {
                     type='password'
                     placeholder='New Password'
                     onChange={e => setPassword(e.target.value)}
+                    isValid={password && confirm && password === confirm}
                     required
                   />
                 </Form.Group>
@@ -81,8 +76,13 @@ const ForgotPassword = (props) => {
                     type='password'
                     placeholder='Confirm Password'
                     onChange={e => setConfirm(e.target.value)}
+                    isInvalid={password !== confirm}
+                    isValid={password && confirm && password === confirm}
                     required
                   />
+                  <Form.Control.Feedback type='invalid'>
+                    Your password fields do not match
+                  </Form.Control.Feedback>
                 </Form.Group>
                 <center>
                   <Button variant='primary' type='submit'>Submit</Button>

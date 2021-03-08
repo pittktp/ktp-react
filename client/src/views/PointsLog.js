@@ -49,7 +49,7 @@ function PointsLog(props) {
     // `shouldUpdate` used to prevent extra API calls
     if (shouldUpdate) {
       Api.getMembers()
-        .then(data => setMembers(data.members.filter(mem => mem.role !== 'Inactive' && mem.role !== 'Alumni')));
+        .then(data => setMembers(data.members));
 
       Api.getRequests()
         .then(data => setRequests(data.requests));
@@ -62,7 +62,7 @@ function PointsLog(props) {
   const handleFilter = member => {
     switch (roleFilter) {
       case 'Active':
-        return member.role !== 'Invactive' && member.role !== 'Alumni';
+        return member.role !== 'Inactive' && member.role !== 'Alumni';
       case 'Inactive':
         return member.role === 'Inactive';
       case 'Alumni':
@@ -399,7 +399,7 @@ function PointsLog(props) {
               <Col xs={12}>
                 <Row>
                   <Col xs={12} lg={5}>
-                    <h2>Fall 2020 Members</h2>
+                    <h2>Spring 2021 Members</h2>
                   </Col>
                   <Col xs={7} lg={{ span: 1, offset: 4 }}>
                     <h3>Filter: </h3>
