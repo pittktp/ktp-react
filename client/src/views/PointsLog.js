@@ -49,7 +49,7 @@ function PointsLog(props) {
     // `shouldUpdate` used to prevent extra API calls
     if (shouldUpdate) {
       Api.getMembers()
-        .then(data => setMembers(data.members));
+        .then(data => setMembers(data.members.filter(mem => mem.role !== 'Inactive' && mem.role !== 'Alumni')));
 
       Api.getRequests()
         .then(data => setRequests(data.requests));
