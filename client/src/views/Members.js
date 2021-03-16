@@ -14,6 +14,7 @@ import Row from 'react-bootstrap/Row';
 // Custom
 import Api from '../services/KTPApi';
 import Layout from './layouts/Layout';
+import defaultPic from '../img/default_pic.jpg';
 import '../styles/Members.css';
 
 function Members(props) {
@@ -57,6 +58,82 @@ function Members(props) {
     props.history.push(`/profile/${id}`);
   }
 
+  const getRushClassLetter = rushClass => {
+    switch (rushClass.toUpperCase()) {
+      case 'ALPHA':
+        return 'Α';
+      case 'BETA':
+        return 'Β';
+      case 'GAMMA':
+        return 'Γ';
+      case 'DELTA':
+        return 'Δ';
+      case 'EPSILON':
+        return 'Ε';
+      case 'ZETA':
+        return 'Ζ';
+      case 'ETA':
+        return 'Η';
+      case 'THETA':
+        return 'Θ';
+      case 'IOTA':
+        return 'Ι';
+      case 'KAPPA':
+        return 'Κ';
+      case 'LAMBDA':
+        return 'Λ';
+      case 'MU':
+        return 'Μ';
+      case 'NU':
+        return 'Ν';
+      case 'XI':
+        return 'Ξ';
+      case 'OMICRON':
+        return 'Ο';
+      case 'PI':
+        return 'Π';
+      case 'RHO':
+        return 'Ρ';
+      case 'SIGMA':
+        return 'Σ';
+      case 'TAU':
+        return 'Τ';
+      case 'UPSILON':
+        return 'Υ';
+      case 'PHI':
+        return 'Φ';
+      case 'CHI':
+        return 'Χ';
+      case 'PSI':
+        return 'Ψ';
+      case 'OMEGA':
+        return 'Ω';
+      default:
+        return '';
+    }
+  }
+
+  // Member Card
+  const MemberCard = ({ member, index }) => (
+    <Col className='mb-4' key={index} xs={8} sm={6} md={4} lg={3}>
+      <div className='member-card'>
+        <div className='member-img'>
+          <img src={member.picture || defaultPic} />
+        </div>
+        <div className='member-hover' onClick={() => props.isAuthenticated && viewProfile(member.email)}>
+          <span>
+            { getRushClassLetter(member.rushClass) } | { member.gradSemester.split(' ')[1] }
+            <br />
+            { member.major }
+            <br />
+            <a href={member.linkedIn}><i className='fa fa-linkedin' /></a>
+          </span>
+        </div>
+      </div>
+      <p className='member-name'>{ member.name }</p>
+    </Col>
+  );
+
   return (
     <div id='members'>
       <Layout>
@@ -78,32 +155,10 @@ function Members(props) {
                 </Form.Group>
               </Form>
             </div>
-            <div className='grid'>
+            <div className='grid' style={{ marginTop: '5vh', marginLeft: '8vw' }}>
               <Row className='justify-content-center row-cols-1 row-cols-lg-4 rows-cols-md-3 rows-cols-sm-2 rows-cols-xs-1'>
                 {members.filter(filterMembers).map((member, index) => (
-                  <Col key={index} xs={8} sm={6} md={4} lg={3} className='mb-4'>
-                    <Card className='members-card h-100'>
-                      {props.isAuthenticated && member.picture ? (
-                        <Image className='initials' src={member.picture} width='100px' roundedCircle />
-                      ) : (
-                        <div className='card-img-circle initials'>
-                          {member.name.split(' ').map(part => part[0]).join('')}
-                        </div>
-                      )}
-                      <Card.Body>
-                        <Card.Title>{member.name}</Card.Title>
-                        <Card.Subtitle>{member.major}</Card.Subtitle>
-                        <div className='members-body'>
-                          <Card.Text className='members-desc'>
-                            {member.description}
-                          </Card.Text>
-                        </div>
-                      </Card.Body>
-                      {props.isAuthenticated && (
-                        <Button className='members-link' variant='link' onClick={() => viewProfile(member.email)}>See More</Button>
-                      )}
-                    </Card>
-                  </Col>
+                  <MemberCard member={member} index={index} />
                 ))}
               </Row>
             </div>
