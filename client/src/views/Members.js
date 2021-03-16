@@ -4,11 +4,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 // Bootstrap
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 
 // Custom
@@ -37,8 +34,10 @@ function Members(props) {
       case 'Inactive':
       case 'Alumni':
         return member.role === filter;
-      default:
+      case 'Active':
         return member.role !== 'Inactive' && member.role !== 'Alumni';
+      default:
+        return member.rushClass === filter;
     }
   }
 
@@ -150,7 +149,17 @@ function Members(props) {
                   >
                     <option value='Active'>Active Members</option>
                     <option value='Inactive'>Inactive Members</option>
-                    <option value='Alumni'>Alumni</option>
+                    <option>Alumni</option>
+                    <option value='Alpha'>Alpha Class</option>
+                    <option value='Beta'>Beta Class</option>
+                    <option value='Gamma'>Gamma Class</option>
+                    <option value='Delta'>Delta Class</option>
+                    <option value='Epsilon'>Epsilon Class</option>
+                    <option value='Zeta'>Zeta Class</option>
+                    <option value='Eta'>Eta Class</option>
+                    <option value='Theta'>Theta Class</option>
+                    <option value='Iota'>Iota Class</option>
+                    <option value='Kappa'>Kappa Class</option>
                   </Form.Control>
                 </Form.Group>
               </Form>
