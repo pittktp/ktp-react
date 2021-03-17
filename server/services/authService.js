@@ -78,6 +78,9 @@ class AuthService {
     if (!hasName || !hasEmail || !hasPassword) {
       let payload = { error: 'Missing Required Fields!' };
       return { status_code: 400, payload };
+    } else if (!credentials.email.includes('@pitt.edu')) {
+      let payload = { error: 'Must use Pitt email' };
+      return { status_code: 400, payload };
     }
 
     const { email, password, code } = credentials;

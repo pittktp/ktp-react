@@ -136,8 +136,12 @@ function Login(props) {
           type='email'
           placeholder='Email'
           onChange={handleChange}
+          isInvalid={!formData.email.includes('@pitt.edu')}
           required
         />
+        <Form.Control.Feedback type='invalid'>
+          Your email must be an `@pitt.edu`
+        </Form.Control.Feedback>
       </Form.Group>
       <Form.Group controlId='registerPassword'>
         <Form.Control
