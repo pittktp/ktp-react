@@ -483,12 +483,43 @@ function Profile(props) {
               <Form>
                 <Form.Group controlId='profRush'>
                   <Form.Label>Change Rush Class:</Form.Label>
-                  <Form.Control
+                  {/* <Form.Control
                     name='rushClass'
                     type='text'
                     defaultValue={(profile && profile.rushClass) || ''}
                     onChange={handleChange}
-                  />
+                  /> */}
+                  <Form.Control
+                    as='select'
+                    name='rushClass'
+                    defaultValue={(profile && profile.rushClass) || ''}
+                    onChange={handleChange}
+                  >
+                    <option>Alpha</option>
+                    <option>Beta</option>
+                    <option>Gamma</option>
+                    <option>Delta</option>
+                    <option>Epsilon</option>
+                    <option>Zeta</option>
+                    <option>Eta</option>
+                    <option>Theta</option>
+                    <option>Iota</option>
+                    <option>Kappa</option>
+                    <option>Lambda</option>
+                    <option>Mu</option>
+                    <option>Nu</option>
+                    <option>Xi</option>
+                    <option>Omicron</option>
+                    <option>Pi</option>
+                    <option>Rho</option>
+                    <option>Sigma</option>
+                    <option>Tau</option>
+                    <option>Upsilon</option>
+                    <option>Phi</option>
+                    <option>Chi</option>
+                    <option>Psi</option>
+                    <option>Omega</option>
+                  </Form.Control>
                 </Form.Group>
                 <Button variant='outline-secondary' onClick={changeRushClass}>Update</Button>
               </Form>
