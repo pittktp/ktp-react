@@ -31,7 +31,7 @@
     "nodemailer-express-handlebars": "^4.0.0",
     "nodemon": "^2.0.3",
     "path": "^0.12.7",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "util": "^0.12.3"
   }
 }
