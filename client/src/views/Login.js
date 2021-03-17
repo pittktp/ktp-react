@@ -30,7 +30,7 @@ function Login(props) {
   });
 
   useEffect(() => {
-    // Redirect to Home if not logged in
+    // Redirect to Home if logged in
     if (props.isAuthenticated) {
       props.history.push('/')
     }

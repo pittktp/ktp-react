@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>KTP Forgot Password Request</title>
+
+    <style>
+      body {
+        background-color: #0d0c1d;
+        color: #eff7ff;
+        font-size: 18px;
+      }
+
+      #ktpBanner {
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+      }
+
+      #danger {
+        color: #da2c38;
+        display: block;
+      }
+
+      #warning {
+        color: #ffee88;
+      }
+
+      #resetCodeWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background-color: #161b33;
+        border-radius: 50px;
+        box-shadow: -11px -11px 18px -7px rgba(0,0,0,0.54) inset;
+        width: fit-content;
+        padding: 12px;
+      }
+
+      #resetCodeWrapper #code {
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <img id="ktpBanner" src="data:image/png;base64,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" />
+    <h1>Hello, {{firstName}}</h1>
+    <div>
+      <p>
+        Someone has requested a password reset code for your account.
+        <span id="danger">
+          If this was not you, please contact the current Tech Chair (see below) immediately!
+        </span>
+        If you did make this request, you can find your reset code below <span id="warning">which will expire in 15 minutes!</span>
+      </p>
+      <center>
+        <div id="resetCodeWrapper">
+          <center>
+            <span>Your Reset Code Is:</span>
+            <br />
+            <span id="code">{{resetCode}}</span>
+          </center>
+        </div>
+      </center>
+    </div>
+    <br />
+    <br />
+    <hr />
+    <p>Katie Man, <strong>President</strong></p>
+    <p>Steven Montalbano, <strong>Vice President</strong></p>
+    <p>Derek Stathis, <strong>Business Manager</strong></p>
+    <p>Waleed Tariq, <strong>Recruitment Chair</strong></p>
+    <p>Kelly Ta, <strong>Public Relations Chair</strong></p>
+    <p>Z"vonty Flugence, <strong>Technology Chair</strong></p>
+    <p>Rachel Coe, <strong>Outreach Chair</strong></p>
+    <p>Eric Tram, <strong>Secretary</strong></p>
+  </body>
+</html>

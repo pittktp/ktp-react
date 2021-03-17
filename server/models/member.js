@@ -69,7 +69,7 @@ const Member = mongoose.model('Member', {
   color: {
     type: Array,
     default: ['#28B463', '#145BBD'],
-  }
+  },
 });
 
 module.exports = Member;
