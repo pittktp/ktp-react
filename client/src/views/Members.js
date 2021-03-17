@@ -123,7 +123,7 @@ function Members(props) {
           <span>
             { getRushClassLetter(member.rushClass) } | { member.gradSemester.split(' ')[1] }
             <br />
-            { member.major }
+            { member.major || 'Undeclared' }
             <br />
             <a href={member.linkedIn}><i className='fa fa-linkedin' /></a>
           </span>
