@@ -3,6 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const hbs = require('nodemailer-express-handlebars');
+const path = require('path');
 
 // Set up Middleware
 const auth = require('../middleware/auth');
@@ -82,23 +84,37 @@ router.post('/forgot-password', async (req, res) => {
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.EMAIL_ADDRESS, // TODO: REMOVE WITH ENV VAR
-      pass: process.env.EMAIL_PASS, // TODO: REMOVE WITH ENV VAR
+      user: process.env.EMAIL_ADDRESS,
+      pass: process.env.EMAIL_PASS,
     }
   });
+
+  transporter.use('compile', hbs({
+    viewEngine: {
+      extName: '.handlebars',
+      partialsDir: path.resolve(__dirname, "views"),
+      defaultLayout: false,
+    },
+    viewPath: path.resolve(__dirname, 'views'),
+    extName: '.handlebars',
+  }));
 
   let mailOptions = {
     from: process.env.EMAIL_ADDRESS,
     to: member.email,
     subject: 'KTP Password Reset',
-    text: `Someone requested a password reset code for your account.\n
-      If this was not you, please contact the current Tech Chair immediately!\n\n
-      Password Reset Code: ${reset_code}`,
+    template: 'forgotpass',
+    context: {
+      firstName: member.name.split(' ')[0],
+      resetCode: reset_code,
+    }
   };
 
   transporter.sendMail(mailOptions, (error, _info) => {
-    if (error)
+    if (error) {
+      console.error(error);
       return res.status(500).json({ success: false, err: 'Email Not Sent!' });
+    }
     
     return res.status(200).json({ success: true, message: 'Email Sent!' });
   });
